@@ -1,0 +1,88 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>fr.banque</groupId>
+	<!-- ATTENTION : artifactId = context root -->
+	<artifactId>en01.servlet</artifactId>
+	<!-- Nous sommes en projet WEB -->
+	<packaging>war</packaging>
+	<version>1.0.0</version>
+	<description>Utilisation des servlet.	Ennoncé</description>
+	<developers>
+		<developer>
+			<id>rf</id>
+			<name>Ferret Renaud</name>
+			<email>admin@ferretrenaud.fr</email>
+			<url>http://ferretrenaud.fr</url>
+		</developer>
+	</developers>
+	<licenses>
+		<license>
+			<name>Simple Machines License</name>
+			<url>http://www.simplemachines.org/about/smf/license.php</url>
+		</license>
+	</licenses>
+	<properties>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<version.mysql>8.0.33</version.mysql>
+		<version.jakarta.jakartaee-api>9.1.0</version.jakarta.jakartaee-api>
+		<version.jakarta.servlet.jsp.jstl>2.0.0</version.jakarta.servlet.jsp.jstl>
+		<!-- https://maven.apache.org/plugins/index.html -->
+		<maven-compiler-plugin-version>3.11.0</maven-compiler-plugin-version>
+		<maven-war-plugin-version>3.3.2</maven-war-plugin-version>
+		<maven-surefire-plugin-version>3.1.0</maven-surefire-plugin-version>
+	</properties>
+	<build>
+		<!-- Afin d'avoir un WAR qui porte le nom de l'artefact id -->
+		<!-- Sans qu'il ajoute automatiquement le numero de version -->
+		<finalName>${project.artifactId}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin-version}</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>${maven-war-plugin-version}</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven-surefire-plugin-version}</version>
+			</plugin>
+		</plugins>
+	</build>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>jakarta.platform</groupId>
+				<artifactId>jakarta.jakartaee-bom</artifactId>
+				<version>${version.jakarta.jakartaee-api}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.glassfish.web</groupId>
+				<artifactId>jakarta.servlet.jsp.jstl</artifactId>
+				<version>${version.jakarta.servlet.jsp.jstl}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	<dependencies>
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>jakarta.servlet.jsp.jstl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<version>${version.mysql}</version>
+			<scope>runtime</scope>
+		</dependency>
+	</dependencies>
+</project>

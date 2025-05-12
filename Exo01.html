@@ -1,0 +1,363 @@
+<!--
+  Copyright 2013
+  Ferret Renaud
+  admin@ferretrenaud.com
+-->
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="Author" content="FERRET Renaud"/>
+    <meta name="Description" content="Exercice de formation"/>
+    <meta name="copyright" content="(C) Copyright 2013 FERRET Renaud"/>
+    <meta name="distribution" content="global"/>
+
+    <title>Servlet</title>
+
+    <link href="../bootstrap-3.4.1-dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../bootstrap-3.4.1-dist/css/base.css" rel="stylesheet"/>
+    <link href="../bootstrap-3.4.1-dist/css/jquery-ui.min.css" rel="stylesheet"/>    
+
+    <!--[if lt IE 9]>
+      <script src="../bootstrap-3.4.1-dist/js/html5shiv.min.js"></script>
+      <script src="../bootstrap-3.4.1-dist/js/respond.min.js"></script>
+    <![endif]-->
+    
+    <link href="../google-code-prettify/prettify.css" rel="stylesheet"/>
+    
+    <script src="../google-code-prettify/prettify.js"></script>
+    <script src="../bootstrap-3.4.1-dist/js/jquery.min.js"></script>
+    <script src="../bootstrap-3.4.1-dist/js/jquery-ui.min.js"></script>
+    <script src="../bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+    
+    <script>
+      $(function() {
+        $("#tabs").tabs();
+      });
+    </script>
+
+  </head>
+
+  <body class="container" onload="PR.prettyPrint()">
+        
+    <div class="page-header">      
+      <nav>
+        <ul class="pager">
+          <li class="previous"><a href="../index.html"><span aria-hidden="true">&larr;</span> Exercice Précédent</a></li>
+          <li class="h1">1 - Servlet</li>          
+          <li class="next"><a href="../Exo02-JSP/Exo02.html">Exercice Suivant <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+      </nav>
+    </div> <!-- page header -->
+    
+    <div id="tabs">
+      <ul>
+        <li>
+          <a href="#tabs-1">1] Installation</a>
+        </li>
+        <li>
+          <a href="#tabs-2">2] Premiere application</a>
+        </li>
+        <li>
+          <a href="#tabs-3">3] Code Java</a>
+        </li>       
+      </ul>        
+
+      <section id="tabs-1">      
+        <div><h1>Installation du Java Development Kit</h1>
+<p>Nous aurons besoin d&rsquo;un JDK, car les JSP seront compilées à la volée, un JRE ne contient pas ce qu&rsquo;il faut pour cela.</p>
+<h2>Téléchargement du JDK</h2>
+<p>Récupérez la version du Java adaptée à votre système (Windows, Unix, Mac &hellip;)</p>
+<p>Téléchargez la version adaptée à votre type de système 32 ou 64bits.</p>
+<p>Prenez un JDK, car il va falloir compiler notre code Java afin de le lancer.</p>
+<p>Les exercices sont à partir de la version 17 (sauf si vous êtes sur la branche jee8, dans ce cas c&rsquo;est une version 11)</p>
+<p>Téléchargement disponible ici <a href="https://www.oracle.com/fr/java/technologies/downloads/#java17" style="color:#337ab7;">https://www.oracle.com/fr/java/technologies/downloads/#java17</a></p>
+<p><img src="../uploads/e8970d315c1257344f3f4f7cbb21b866/image.png" alt="image" class="center-block img-responsive" /></p>
+<h2>Installation du Java (JDK)</h2>
+<p>Lancez l&rsquo;installation :</p>
+<ul>
+<li>Sous Windows, double cliquez sur le fichier, attention il faut avoir les autorisations d&rsquo;administration</li>
+<li>Sous unix / linux, utilisez le RPM ou l&rsquo;installateur de package dédié.</li>
+</ul>
+<p>Remarque: Vous pouvez aussi installer la version totalement gratuite si vous préférez, elle est disponible <a href="https://jdk.java.net/" style="color:#337ab7;">ici</a></p>
+<h2>Variables d&rsquo;environnements</h2>
+<p>Afin de terminer l&rsquo;installation il est conseillé de modifier vos variables d&rsquo;environnements :</p>
+<ul>
+<li>La variable <code>JAVA_HOME</code>(en majuscules) pointera sur votre dossier d&rsquo;installation du JDK. A titre d&rsquo;exemple, sous Windows 64bits : <code>C:\Program Files\Java\jdk-17.0.6</code></li>
+<li>La variable <code>PATH</code>(en majuscule), doit contenir le chemin vers les binaires Java.</li>
+</ul>
+<p><img src="../uploads/418afcbbc2b35fb1b5eadb80a03b04a9/instvar.png" alt="instvar" class="center-block img-responsive" /></p>
+<h2>Test</h2>
+<p>Pour valider que tout fonctionne, lancez un &ldquo;Invité de commande&rdquo; (un shell) et tapez les commandes :</p>
+<p><code>java -version</code></p>
+<p><code>javac -version</code></p>
+<p><img src="../uploads/d89f11989762d34f4f3844a7b78b11af/image.png" alt="image" class="center-block img-responsive" /></p>
+<p>Dans certain cas, il vous faudra redémarrer votre Windows avant que les variables d&rsquo;environnements soient effectives.</p>
+<h1>Installation d&rsquo;un serveur JEE</h1>
+<h2>Téléchargement de Tomcat</h2>
+<p>Récupérez la version de Tomcat qui vous concerne sur <a href="https://tomcat.apache.org/" style="color:#337ab7;">Apache Tomcat</a>.</p>
+<p>Prenez la version 10.</p>
+<p><img src="../uploads/813d4c12bbc31daf91d76c21b40ed8bd/image.png" alt="image" class="center-block img-responsive" /></p>
+<p>Il est préférable de prendre la version ZIP ou TAR.GZ, la version EXE installera un démon Windows.</p>
+<p>Installez en suivant les instructions (cas du exe) ou dé-zippez l&rsquo;archive où vous voulez.</p>
+<h2>Variables d&rsquo;environnements</h2>
+<p>Si vous le désirez, vous pouvez compléter l&rsquo;installation en ajoutant la variable d’environnement <code>TOMCAT_HOME</code> qui pointera vers le dossier d&rsquo;installation de tomcat (par exemple <code>k:\apache-tomcat-10.1.9</code>)</p>
+<p>Cela n&rsquo;est pas obligatoire dans le cas d&rsquo;une utilisation avec un IDE (Eclipse, &hellip;)</p>
+<h2>Test</h2>
+<p>Pour valider que tout fonctionne, lancez un &ldquo;Invité de commande&rdquo; (un shell) dans le dossier <code>%TOMCAT_HOME%\bin</code> et tapez la commande : <code>startup.bat</code> (ou startup.sh si vous êtes sous Unix.</p>
+<p>Patientez quelques secondes, puis lancez votre navigateur web sur l&rsquo;URL <a href="http://localhost:8080" style="color:#337ab7;">http://localhost:8080</a></p>
+<p>Si vous avez un WAMP/LAMP, pensez à arrêter le Tomcat (il faudra peut être le killer).</p>
+<p>Si vous désirez  changer le numéro de port du serveur vous pouvez le faire en allant éditer le fichier <code>%TOMCAT_HOME%\conf\server.xml</code></p>
+<p>Pour arrêter tomcat, vous pouvez faire un ctrl+c dans le shell ou lancer le scripte <code>%TOMCAT_HOME%\bin\shutdow.bat</code></p>
+<h1>Installation Eclipse</h1>
+<p>Eclipse est un outil de développement Java gratuit, il fonctionne sous Windows, Unix.</p>
+<p>Il a besoin d&rsquo;un JDK pour fonctionner, c&rsquo;est un outil fait en Java. La version du Java nécessaire à Eclipse n&rsquo;est pas obligatoirement la même que celle qui vous servira pour vos développements, lisez bien les près-requis de la version Eclipse choisie.</p>
+<h2>Téléchargement</h2>
+<p>Récupérez la version adaptée à votre système (Windows, Unix, Mac &hellip;)</p>
+<p>Téléchargez la version adaptée à votre type de système 32 ou 64bits.</p>
+<p>Prenez la version la plus adaptée à vos développements, dans le doute prenez la version <a href="https://www.eclipse.org/downloads/packages/" style="color:#337ab7;">Eclipse IDE for Enterprise Java Developers</a> qui permet de faire des applications Webs.</p>
+<p>Téléchargement disponible ici <a href="https://www.eclipse.org/downloads/packages/" style="color:#337ab7;">https://www.eclipse.org/downloads/packages/</a></p>
+<p><img src="../uploads/5b69dba8af0d48d9d9ffb5f6e746e952/image.png" alt="image" class="center-block img-responsive" /></p>
+<h2>Installation</h2>
+<p>Il n&rsquo;y a pas d&rsquo;installation (fichier exe, msi, &hellip;) à proprement parler, il suffit de dé-zipper l&rsquo;archive ZIP sur votre disque dur. Si besoin installer un outil de gestion d&rsquo;archive comme <a href="https://www.7-zip.org/download.html" style="color:#337ab7;">7-Zip</a></p>
+<p><strong>Important</strong> : sous Windows, il est conseillé de placer Eclipse directement au niveau de la racine d&rsquo;une partition, par exemple sur c: (limitation sur la taille des noms de fichiers).</p>
+<p>Vous devriez avoir l&rsquo;arborescence suivante :</p>
+<p><img src="../uploads/5f2aee8f600c027e1e677d512022ea86/image.png" alt="image" class="center-block img-responsive" /></p>
+<h2>Lancement</h2>
+<p>Lancez Eclipse sous Windows en double cliquant sur <code>eclipse.exe</code></p>
+<p>Eclipse va vous demander où créer votre workspace (espace de travail), c&rsquo;est là qu&rsquo;il mettra votre code Java/web.</p>
+<h2>Paramétrages</h2>
+<p>Si vous travaillez sous Windows uniquement, allez dans le menu <code>Window/Preferences</code>, puis tapez <em>encoding</em> dans le filtre en haut à gauche.</p>
+<p><img src="../uploads/dd3e613fa40e79227a3e160114f86e8c/image.png" alt="image" class="center-block img-responsive" /></p>
+<p>Si vous n&rsquo;êtes pas en <code>UTF-8</code>, placez-vous en <code>UTF-8</code> pour Workspace, CSS, HTML et JSP.</p>
+<p>Faites <code>Apply</code> (en bas à droite), puis effacez votre filtre (<em>encoding</em>), allez sur <code>Java/Installed JREs</code></p>
+<p>Dans tous les cas, vérifiez que vous pointez bien sur un <strong>JDK</strong> et pas un JRE. Le cas échéant modifiez votre chemin afin de pointer vers un JDK.</p>
+<p><img src="../uploads/ba0475ed54c41cff215d9d23265b8227/image.png" alt="image" class="center-block img-responsive" /></p>
+<p>N&rsquo;oubliez pas de faire <code>Apply</code> (en bas à droite).</p>
+<h2>Serveur JEE</h2>
+<p>Il faut maintenant indiquer à Eclipse où se trouve votre Tomcat. Notez que Eclipse supporte plusieurs versions de serveurs JEE, vous pouvez en utiliser autant que vous voulez.</p>
+<p>Allez dans le menu <code>Window/Preferences</code>, puis l&rsquo;onglet <code>Server/Runtime Environement</code>.</p>
+<p><img src="../uploads/8801414028b9a2ad4b29c928406c6e5d/image.png" alt="image" class="center-block img-responsive" /></p>
+<p>Cliquez sur le bouton <code>Add....</code></p>
+<p><img src="../uploads/7fc55f5d3c77d18b275ccf690f22b278/image.png" alt="image" class="center-block img-responsive" /></p>
+<p>Sélectionnez la version de votre Tomcat, faites suivant</p>
+<p>Indiquez un nom, ainsi que le chemin d&rsquo;installation de votre Tomcat. Ne changez pas le Name choisit par Eclipse.</p>
+<p><img src="../uploads/0b859166d23b9996a66d523db740622c/image.png" alt="image" class="center-block img-responsive" /></p>
+<p>Si vous le désirez, vous pouvez indiquer une version de machine virtuelle à utiliser pour lancer votre Tomcat.</p>
+<p>Faites <code>Finish</code>.</p>
+<p>Remarque : vous pouvez faire usage d&rsquo;un Tomcat 10.0 si vous le souhaitez. Vous ne pourrez pas faire du Tomcat &lt; 9 (nous sommes en JEE9).</p>
+<h1>La base de données</h1>
+<h2>Installer Docker</h2>
+<p>Si Docker n&rsquo;est pas disponible sur votre machine, vous devrez l&rsquo;installer.</p>
+<p>Suivez les informations disponibles sur <a href="https://docs.docker.com/get-docker/" style="color:#337ab7;">https://docs.docker.com/get-docker/</a></p>
+<p>Sous Windows, n&rsquo;oubliez surtout pas d&rsquo;installer au moins une distribution WSL2 (en principe c&rsquo;est ce que vous demandera docker au premier lancement, voir <a href="https://learn.microsoft.com/fr-fr/windows/wsl/install-manual#step-4---download-the-linux-kernel-update-package" style="color:#337ab7;">ici</a>)</p>
+<p><img src="../uploads/959a0c58c27de408c063717466ec11d5/image.png" alt="image" class="center-block img-responsive" /></p>
+<p>Pour ceux qui n&rsquo;aiment pas lire :</p>
+<ul>
+<li>En Anglais :  <a href="https://www.youtube.com/watch?v=jPdIRX6q4jA&amp;list=PLy7NrYWoggjzfAHlUusx2wuDwfCrmJYcs" style="color:#337ab7;">https://www.youtube.com/watch?v=jPdIRX6q4jA&amp;list=PLy7NrYWoggjzfAHlUusx2wuDwfCrmJYcs</a></li>
+<li>En français : <a href="https://xavki.blog/docker-tutoriaux-francais/" style="color:#337ab7;">https://xavki.blog/docker-tutoriaux-francais/</a></li>
+</ul>
+<p>Note : attention si votre machine n&rsquo;est pas très puissante, cette approche peut s&rsquo;avérer plus lente que d&rsquo;installer tous les programmes (Java, Maven &hellip;).</p>
+<p>MySQL s&rsquo;utilisera en se plaçant dans le dossier <code>_docker\mysql</code></p>
+<h3>Lancer le docker</h3>
+<p>Une fois docker installé, dans le dossier <code>_docker\mysql</code>, tapez la commande :
+<code>docker-compose up</code></p>
+<p>Soyez patient, les deux images vont se construire pour la première fois.</p>
+<p>Cela peut prendre 5 à 10 minutes (voir plus si votre réseau est lent &hellip;). N&rsquo;hésitez pas à regarder dans l&rsquo;outil docker desktop pour voir si les conteneurs sont disponibles.</p>
+<p>Notez que MySQL vient aussi avec un conteneur PhpMyAdmin afin de consulter la base.</p>
+<h2>Installation via MySQL standard</h2>
+<p>Installez une base MySQL sur votre ordinateur, téléchargez <a href="https://dev.mysql.com/downloads/" style="color:#337ab7;">MySQL</a> sur <a href="https://dev.mysql.com/downloads/" style="color:#337ab7;">https://dev.mysql.com/downloads/</a>.</p>
+<p>Prenez la version <strong>MySQL Community</strong>.</p>
+<p>Lors de l&rsquo;installation, <strong>notez bien</strong> le mot de passe que vous aurez choisi pour l&rsquo;utilisateur root (restez simple, on est en dev).</p>
+<h3>Important</h3>
+<p>Vous devez installer MySQL 8+.</p>
+<p>Ne pas installer un <a href="https://www.wampserver.com/" style="color:#337ab7;">WAMP</a> ou LAMP ou XAMP juste pour MySQL, une enclume ne sert pas à planter un clou (en en plus vous ne serez pas forcément en MySQL mais plus en MariaDB).</p>
+<h3>Client pour votre base de données</h3>
+<p>Si vous êtes sous Windows et avez sélectionnez la grosse archive lors de l&rsquo;installation, vous devriez avoir Workbench d&rsquo;installé. Sinon, vous pouvez l&rsquo;installer en plus en le téléchargeant <a href="https://dev.mysql.com/downloads/workbench/" style="color:#337ab7;">ici</a></p>
+<p>Au cas où Workbench ne vous convient pas, vous pouvez installer l&rsquo;un de ceux la :</p>
+<ul>
+<li><a href="https://dbeaver.io/" style="color:#337ab7;">DBeaver</a></li>
+<li><a href="https://www.heidisql.com/" style="color:#337ab7;">Heidi SQL</a></li>
+<li><a href="http://squirrel-sql.sourceforge.net/" style="color:#337ab7;">SQuirreL SQL</a></li>
+</ul>
+<h3>Importation</h3>
+<p>Lancez l’utilitaire Workbench et importez la base qui se trouve dans le dossier <strong>db</strong> de l’exercice, fichier <strong>banque_mysql.sql</strong>.</p>
+<p><img src="../uploads/c86ff6a7c017b78ff361233d0dd12f23/image.png" alt="image" class="center-block img-responsive" /></p>
+<p><img src="../uploads/ef9b6acfed3242fa7e1ac011a70f774e/image.png" alt="image" class="center-block img-responsive" /></p>
+<p>Allez dans le menu <code>File/Open SQL Script</code>, puis sélectionnez le fichier à importer.</p>
+<p><img src="../uploads/50679d94a14fcfb41264db162c1c3bd6/image.png" alt="image" class="center-block img-responsive" /></p>
+<p><img src="../uploads/7c9c8e313a4c51419cd9ebf809d9bcd1/image.png" alt="image" class="center-block img-responsive" /></p>
+<h2>Présentation</h2>
+<p>La base se compose de trois tables, un utilisateur peut posséder des comptes.</p>
+<p>Un compte n’appartient qu’a un seul utilisateur.</p>
+<p>Les comptes peuvent générer des opérations. Une opération n’est liée qu’a un seul compte.</p>
+<p><img src="../uploads/b21381a940d300e35364c941bcb8743d/image.png" alt="image" class="center-block img-responsive" /></p>
+</div>
+      </section>        
+
+      <section id="tabs-2">      
+        <div><h1>Le Projet</h1>
+<h2>Rappel Maven</h2>
+<p>L&rsquo;outil <a href="https://maven.apache.org/" style="color:#337ab7;">Maven</a> permet de paramétrer un projet de manière neutre (c.a.d qui n&rsquo;est pas associé à un outil de développement spécifique).</p>
+<p>Les projets de cette formation sont réalisés en <a href="https://maven.apache.org/" style="color:#337ab7;">Maven</a> afin de vous familiariser avec cette technique qui est la plus répandue actuellement.</p>
+<p>Toutes les librairies qui seront nécessaires à nos projets seront automatiquement téléchargées d&rsquo;Internet grâce à <a href="https://maven.apache.org/" style="color:#337ab7;">Maven</a>.</p>
+<p>Toutes les informations associées aux paramétrages de votre projet seront dans le fichier <code>pom.xml</code> qui se trouve à la racine du projet.</p>
+<p>Si vous modifiez le fichier <code>pom.xml</code>, vous devez faire un clic droit sur votre projet puis <code>Maven - Update Project...</code> afin qu&rsquo;Eclipse prenne en compte les modifications.</p>
+<p>L&rsquo;ensemble des librairies nécessaires seront placées sur votre disque dur dans le dossier [utilisateur]/.m2. Dans de rare cas, si Maven ne marche plus, pensez à l&rsquo;effacer.</p>
+<p>L&rsquo;arborescence d&rsquo;un projet Maven web est la suivante :</p>
+<ul>
+<li>votre code web (qui touche à la présentation) (.jsp, .html, .css, .js, Images, &hellip;) ira dans <code>src\main\webapp</code></li>
+<li>votre code Java (entre autre vos Servlet) (fichiers .java, &hellip;) ira dans <code>src\main\java</code></li>
+<li>vos fichiers de configurations (log, properties, &hellip;) iront dans <code>src\main\resources</code></li>
+<li>votre code Java servant pour le test (fichiers .java, &hellip;) ira dans <code>src\test\java</code></li>
+<li>vos fichiers de configurations servant pour le test (log, properties, &hellip;) iront dans <code>src\test\resources</code></li>
+<li>vos librairies de code (fichiers .jar) devront être déclarées en tant que dépendances Maven</li>
+</ul>
+<h2>Importation dans Eclipse</h2>
+<p>Dans le menu Eclipse, sélectionnez <code>File/Import</code> puis <code>Existing Maven Projects</code></p>
+<p><img src="../uploads/09542768dbda0f2ce8f3656619c94888/image.png" alt="image" class="center-block img-responsive" /></p>
+<p>Pointez vers le dossier existant <code>formation.java.ee\exercices\enonces\Exo01-Servlet</code>.</p>
+<p>Pointez vers le projet existant contenu dans cet exercice.</p>
+<p>Le projet est en Maven et contient toutes les dépendances nécessaires au projet. Attendez que toutes les dépendances soient téléchargées d’Internet avant de modifier le projet.</p>
+<p><img src="../uploads/91057dc7a9ccfbe4247120934364b6fb/image.png" alt="image" class="center-block img-responsive" /></p>
+<p>Vérifiez que tout fonctionne (pas de rouge sur le projet). <strong>Le cas échéant</strong>, vérifiez que vous avez un accès Internet puis faites un clic droit sur le projet puis <code>Maven - Update Project ...</code> et cochez <code>Force Update of Snapshots/Releases</code>.</p>
+<p><img src="../uploads/7bb0ad1c1d1ad6be2e802486cfbee07f/image.png" alt="image" class="center-block img-responsive" /></p>
+<p>Maintenant, faites un clic droit sur le projet, puis <code>Properties</code> (tout en bas)</p>
+<p>Dans l&rsquo;onglet <code>Targeted Runtime</code>, cochez votre version de Tomcat.</p>
+<h2>Petit tour des dépendances</h2>
+<p>Consultez le fichier <code>pom.xml</code>.</p>
+<p>Maven gère vos dépendances dans le fichier <code>pom.xml</code>.</p>
+<p>Elles sont déjà toutes en place. Repérez celles de du JEE</p>
+<h1>Présentation du projet</h1>
+<p>Il y a déjà du code dans le projet que vous récupérez.</p>
+<p>Allez dans le dossier <code>src/main/java</code>.</p>
+<p>Dans le package <code>fr.banque</code> vous trouverez tout ce qui touche aux objets entités. Ce sont des objets qui représentent les données en base.</p>
+<p><img src="../uploads/f0e82c197d9dc3f5651368b68867c534/image.png" alt="image" class="center-block img-responsive" /></p>
+<p>Dans le package <code>fr.bd</code> vous trouverez la classe <code>AccesBD</code>.</p>
+<p><img src="../uploads/e9d5644f552af11428ed05f0bba3ba8d/image.png" alt="image" class="center-block img-responsive" /></p>
+<p>Son rôle est un mixte entre DAO et services métiers, elles portent toute l&rsquo;intelligence du code.</p>
+<p>Exemple d&rsquo;utilisation d&rsquo;AccesBD :</p>
+<pre><code class="prettyprint language-java">  // Exemple en MySQL
+  final String dbDriver = &quot;com.mysql.cj.jdbc.Driver&quot;;
+  final String dbUrl = &quot;jdbc:mysql://localhost/banque?useSSL=false&amp;serverTimezone=Europe/Paris&amp;allowPublicKeyRetrieval=true&quot;;
+  final String dbLogin = &quot;banque&quot;;
+  final String dbPwd = &quot;banque&quot;;
+  AccesBD bd = null;
+  try {
+    bd = new AccesBD(dbDriver);
+    bd.seConnecter(dbUrl, dbLogin, dbPwd);
+
+    // En Mapping maintenant
+    System.out.println(&quot;\nMapping Objet&quot;);
+    List&lt;Client&gt; lClient = bd.selectUtilisateur();
+    for(Client client : lClient) {
+      System.out.println(client);
+    }
+  } catch (SQLException e) {
+    e.printStackTrace();
+  } finally {
+    if (bd != null) {
+      bd.seDeconnecter();
+    }
+  }
+</code></pre>
+<p>Des classes Servlet sont déjà présentent dans le package <code>fr.web</code>, mais elles ne font rien pour le moment.</p>
+<h1>Déploiement</h1>
+<p>Afin de pouvoir tester votre projet via un navigateur Web, vous devrez créer une instance de serveur et y déployer votre projet.</p>
+<p>En perspective Java EE, allez sur l&rsquo;onglet (la <em>View</em>) <code>Server</code> (en bas)</p>
+<p><img src="../uploads/0950e7d847961201a6139c76112a30f7/image.png" alt="image" class="center-block img-responsive" /></p>
+<p>Sélectionnez votre serveur (10 ou 10.1), puis faites <code>Next</code>.</p>
+<p>Ajoutez votre projet au serveur en le sélectionnant et en cliquant sur le bouton <code>Add</code></p>
+<p><img src="../uploads/c257013f81040f423bd8f178b4af4e3f/image.png" alt="image" class="center-block img-responsive" /></p>
+<p>Pour démarrer le serveur, vous pouvez faire un clic droit dessus puis <code>Start</code>, vous pouvez aussi vous positionner sur un élément Web (Servlet, JSP, page HTML) et faire un clic droit puis <code>Run As - Run on server</code></p>
+<p>Lisez toujours attentivement ce que vous raconte Tomcat quand il démarre.</p>
+</div>
+      </section>        
+
+      <section id="tabs-3">      
+        <div><h1>Code Java</h1>
+<h2>Servlet Client</h2>
+<p><img src="../uploads/d9c6aad518df58675064331220af269d/image.png" alt="image" class="center-block img-responsive" /></p>
+<p>Dans un premier temps, nous allons coder de manière simplifiée et ne réaliser que des Servlets.</p>
+<p>Éditez la classe <code>fr.web.ServletClient</code>.</p>
+<p>On souhaite fabriquer une page web qui représente tous les clients. Dans la méthode <code>service</code> ou <code>doGet</code> ou <code>doPost</code> vous allez écrire le code qui va :</p>
+<ul>
+<li>Se connecter à la base de données</li>
+<li>Exécuter une requête qui récupère tous les utilisateurs.</li>
+<li>Parcourir le résultat et fabriquer un flux HTML qui ressemblera à exempleClients.html.</li>
+<li>Se déconnecter de la base de données</li>
+<li>Ecrire le flux sur la réponse</li>
+</ul>
+<p>Notez que l&rsquo;accès à la base de données se fera par le biais de la classe <code>fr.banque.AccesBD</code>. Lisez sa documentation pour voir comment elle fonctionne.</p>
+<p>Notez aussi que dans le flux de retour on a un formulaire qui doit nous permettre de voir les comptes du client, il contient donc un paramètre qui va contenir l&rsquo;id du client.</p>
+<pre><code class="prettyprint language-html">...
+  &lt;form action=&quot;UrlDeLaServletCompte&quot; method=&quot;post&quot;&gt;
+    &lt;input type=&quot;hidden&quot; name=&quot;id&quot; value=&quot;unIdDeClient&quot; /&gt;
+    &lt;input type=&quot;submit&quot; value=&quot;Voir ses comptes&quot; /&gt;
+  &lt;/form&gt;
+...
+</code></pre>
+<h2>Test</h2>
+<p>Lancez votre serveur, puis allez sur l&rsquo;URL qui caractérise votre application : <a href="http://localhost:8080/NomDeVotreContext/NomDeMappingDeVotreServlet">http://localhost:8080/NomDeVotreContext/NomDeMappingDeVotreServlet</a></p>
+<p>Rappels :</p>
+<ul>
+<li>ATTENTION aux majuscules/minuscules</li>
+<li>le <em>NomDeVotreContext</em> est spécifié dans les propriétés du projet, section <strong>Web Project Settings</strong>. Comme nous sommes en Maven, c&rsquo;est aussi votre artefactId = <em>en01.servlet</em>.</li>
+<li>Pour retrouver son nom de context root, faire un clic droit sur son projet puis <code>Properties</code>, allez dans <code>Web Project Settings</code>.</li>
+<li>le <em>NomDeMappingDeVotreServlet</em> est spécifié dans le fichier <code>src\main\webapp\WEB-INF\web.xml</code> ou dans l&rsquo;annotation <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/annotation/WebServlet.html" style="color:#337ab7;">@WebServlet</a> de votre classe servlet (en principe c&rsquo;est <em>ServletClient</em> et <em>ServletCompte</em>).</li>
+</ul>
+<p>Ce qui peut donner <a href="http://localhost:8080/en01.servlet/ServletClient">http://localhost:8080/en01.servlet/ServletClient</a>.</p>
+<h2>Servlet Compte</h2>
+<p><img src="../uploads/f2276f1da9dee2576c5441a367243c6c/image.png" alt="image" class="center-block img-responsive" /></p>
+<p>Éditez la classe servlet <code>fr.web.ServletCompte</code>.</p>
+<p>On souhaite fabriquer une page web qui représente tous les comptes d&rsquo;un client donné. Dans la méthode <code>service</code> ou <code>doPost</code> vous allez écrire le code qui va</p>
+<ul>
+<li>Récupérer le paramètre qui contient l&rsquo;id du client</li>
+<li>Se connecter à la base de données</li>
+<li>Exécuter une requête qui récupère tous les comptes associés à l&rsquo;utilisateur.</li>
+<li>Parcourir le résultat et fabriquer un flux HTML qui ressemblera à exempleComptes.html.</li>
+<li>Se déconnecter de la base de données</li>
+<li>Ecrire le flux sur la réponse</li>
+</ul>
+<p>L&rsquo;accès à la base de données se fera toujours par le biais de la classe <code>fr.banque.AccesBD</code>.</p>
+<p>Attention : vous êtes en polymorphisme sur la manipulation de la liste des comptes. N&rsquo;oubliez pas qu&rsquo;il existe plusieurs types de compte.</p>
+<p><strong>Questions</strong></p>
+<ul>
+<li>Peut-on trouver un attribut à cette servlet ?</li>
+<li>Peut-on trouver un héritage à cette servlet ?</li>
+</ul>
+<p>Vérifiez que vous avez modifiez l&rsquo;URL de votre formulaire côté Servlet client afin que l&rsquo;action pointe vers l&rsquo;URL de la servlet compte.</p>
+<h1>Test</h1>
+<p>Lancez votre serveur, puis allez sur l&rsquo;URL qui caractérise votre Servlet Client : <a href="http://localhost:8080/en01.servlet/ServletClient">http://localhost:8080/en01.servlet/ServletClient</a></p>
+<p>Cliquez sur un des clients et vérifiez que vous voyez ses comptes.</p>
+<p><strong>Question</strong> : Peut-on directement accéder à la servlet compte sans passer par la page qui montre les clients ?</p>
+</div>
+      </section>
+    </div> <!-- tabs -->    
+
+    <h1 class="panel-title">
+      <a href="#top"><span class="glyphicon glyphicon-menu-up pull-right" title="Remonter"></span></a>
+    </h1>
+
+    <br/><br/>
+
+    <nav>
+      <ul class="pager">
+        <li class="previous"><a href="../index.html"><span aria-hidden="true">&larr;</span> Exercice Précédent</a></li>
+        <li class="h1">1 - Servlet</li>
+        <li class="next"><a href="../Exo02-JSP/Exo02.html">Exercice Suivant <span aria-hidden="true">&rarr;</span></a></li>
+      </ul>
+    </nav>
+
+    <br/><br/>
+    <footer>
+      <p class="text-center">
+        Copyright <span class="glyphicon glyphicon-copyright-mark"></span> <a href="http://ferretrenaud.fr" target="_blank">Ferret Renaud</a> 2013
+      </p>
+    </footer>
+
+  </body>
+</html>
